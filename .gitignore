@@ -1,3 +1,6 @@
+# Folders to ignore
+documents/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
