@@ -1,4 +1,4 @@
-from . import os, extract_text, cv2, pytesseract
+from __init__ import os, extract_text, cv2, pytesseract, Flask, render_template, request, jsonify
 from algorithm import index_documents, search_documents
 
 ### format processing
@@ -27,19 +27,31 @@ def load_documents(directory):
         documents.append((file_name, content))
     return documents
 
-### main pipeline
-def main():
-    documents_dir = 'path/to/documents'
-    documents = load_documents(documents_dir)
-    
-    indexed_documents = index_documents(documents)
-    
-    query = input("Введите запрос для поиска: ")
-    results = search_documents(indexed_documents, query)
-    
-    print("Результаты поиска:")
-    for file_name, similarity in results:
-        print(f"Файл: {file_name}, Сходство: {similarity:.4f}")
+documents_dir = 'documents'
+app = Flask(__name__)
 
-if __name__ == "__main__":
-    main()
+### main pipeline
+def indexed(documents_dir):
+    documents = load_documents(documents_dir)
+    indexed_documents = index_documents(documents)
+    return indexed_documents
+
+### launching flask application
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route('/get_files', methods=['GET'])
+def get_files():
+    files = os.listdir(documents_dir)
+    return jsonify(files)
+
+@app.route('/search', methods=['POST'])
+def search():
+    query = request.form['query']
+    results = search_documents(indexed(documents_dir), query)
+    return jsonify(results)
+
+if __name__ == '__main__':
+    # app.run(debug=True)
+    app.run()

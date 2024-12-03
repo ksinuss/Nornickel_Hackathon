@@ -1,5 +1,5 @@
 ### importing libraries
-import pip._internal as pip
+import subprocess
 import importlib
 import os
 import re
@@ -7,15 +7,16 @@ import re
 package_lib = ['torch', 
               'cv2', 
               'pytesseract', 
-              'pdfminer.high_level', 
+              'pdfminer.six', 
               'transformers', 
-              'sklearn.metrics.pairwise',
-              'numpy']
+              'scikit-learn',
+              'numpy',
+              'flask']
 
 for lib in package_lib:
     try:
-        pip.main(['install', lib])
-    except BaseException as e:
+        subprocess.check_call(['pip', 'install', lib])
+    except subprocess.CalledProcessError as e:
         print(f"Exeption found {e}")
 
 try:
@@ -26,5 +27,6 @@ try:
     from transformers import RagTokenizer, RagRetriever, RagSequenceForGeneration
     from sklearn.metrics.pairwise import cosine_similarity
     import numpy as np
+    from flask import Flask, render_template, request, jsonify
 except BaseException as e:
     print(f"Exeption found {e}")

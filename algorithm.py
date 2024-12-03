@@ -1,4 +1,4 @@
-from . import RagTokenizer, RagRetriever, RagSequenceForGeneration, torch, cosine_similarity
+from __init__ import RagTokenizer, RagRetriever, RagSequenceForGeneration, torch, cosine_similarity
 
 ### indexing documents using the RAG model
 def index_documents(documents):
