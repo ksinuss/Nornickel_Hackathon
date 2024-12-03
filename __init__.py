@@ -13,11 +13,12 @@ package_lib = ['torch',
               'numpy',
               'flask']
 
-for lib in package_lib:
-    try:
-        subprocess.check_call(['pip', 'install', lib])
-    except subprocess.CalledProcessError as e:
-        print(f"Exeption found {e}")
+def install_in_error():
+    for lib in package_lib:
+        try:
+            subprocess.check_call(['pip', 'install', lib])
+        except subprocess.CalledProcessError as e:
+            print(f"Exeption found {e}")
 
 try:
     import torch
