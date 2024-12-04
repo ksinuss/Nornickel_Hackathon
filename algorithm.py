@@ -1,9 +1,9 @@
-from __init__ import RagTokenizer, RagRetriever, RagSequenceForGeneration, torch, cosine_similarity
+from __init__ import RagTokenizer, RagRetriever, RagSequenceForGeneration, torch, cosine_similarity, datasets, faiss
 
 ### indexing documents using the RAG model
 def index_documents(documents):
     tokenizer = RagTokenizer.from_pretrained("facebook/rag-sequence-nq")
-    retriever = RagRetriever.from_pretrained("facebook/rag-sequence-nq", index_name="exact", use_dummy_dataset=True)
+    retriever = RagRetriever.from_pretrained("facebook/rag-sequence-nq", index_path="local_dataset")
     model = RagSequenceForGeneration.from_pretrained("facebook/rag-sequence-nq", retriever=retriever)
     
     indexed_documents = []
@@ -19,7 +19,7 @@ def index_documents(documents):
 ### search using cosine similarity
 def search_documents(indexed_documents, query):
     tokenizer = RagTokenizer.from_pretrained("facebook/rag-sequence-nq")
-    retriever = RagRetriever.from_pretrained("facebook/rag-sequence-nq", index_name="exact", use_dummy_dataset=True)
+    retriever = RagRetriever.from_pretrained("facebook/rag-sequence-nq", index_path="local_dataset")
     model = RagSequenceForGeneration.from_pretrained("facebook/rag-sequence-nq", retriever=retriever)
     
     query_inputs = tokenizer(query, return_tensors="pt")

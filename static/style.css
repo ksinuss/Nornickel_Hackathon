@@ -47,8 +47,10 @@ button:hover {
     background-color: #0056b3;
 }
 
-#files {
+.files-section {
     margin-top: 20px;
+    border-top: 1px solid #ccc;
+    padding-top: 20px;
 }
 
 #fileList {

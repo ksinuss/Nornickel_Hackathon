@@ -3,6 +3,7 @@ import subprocess
 import importlib
 import os
 import re
+import pickle
 
 package_lib = ['torch', 
               'cv2', 
@@ -11,14 +12,17 @@ package_lib = ['torch',
               'transformers', 
               'scikit-learn',
               'numpy',
-              'flask']
+              'flask',
+              'datasets',
+              'faiss-cpu',
+              'elasticsearch',
+              'python-docx']
 
-def install_in_error():
-    for lib in package_lib:
-        try:
-            subprocess.check_call(['pip', 'install', lib])
-        except subprocess.CalledProcessError as e:
-            print(f"Exeption found {e}")
+# for lib in package_lib:
+#     try:
+#         subprocess.check_call(['pip', 'install', lib])
+#     except subprocess.CalledProcessError as e:
+#         print(f"Exeption found {e}")
 
 try:
     import torch
@@ -29,5 +33,22 @@ try:
     from sklearn.metrics.pairwise import cosine_similarity
     import numpy as np
     from flask import Flask, render_template, request, jsonify
+    import datasets
+    import faiss
+    from elasticsearch import Elasticsearch
+    from docx import Document
+
+    pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+    os.environ['TRUST_REMOTE_CODE'] = 'True'
 except BaseException as e:
     print(f"Exeption found {e}")
+
+### create a pcgs_w100.tsv.pkl file with the correct data
+data = {
+    "document1": "content1",
+    "document2": "content2",
+    "document3": "content3"
+}
+
+with open("local_dataset/psgs_w100.tsv.pkl", "wb") as f:
+    pickle.dump(data, f)
