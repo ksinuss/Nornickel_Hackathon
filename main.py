@@ -1,5 +1,5 @@
 from __init__ import os, extract_text, cv2, pytesseract, Flask, render_template, request, jsonify, Elasticsearch, Document
-from algorithm import index_documents, search_documents
+from algorithm import index_documents, search_documents, create_local_dataset
 
 ### format processing
 def process_document(file_path):
@@ -44,6 +44,7 @@ app = Flask(__name__)
 ### main pipeline
 def indexed(documents_dir):
     documents = load_documents(documents_dir)
+    create_local_dataset(documents)
     indexed_documents = index_documents(documents)
     return indexed_documents
 

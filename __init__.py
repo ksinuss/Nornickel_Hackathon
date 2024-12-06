@@ -16,7 +16,8 @@ package_lib = ['torch',
               'datasets',
               'faiss-cpu',
               'elasticsearch',
-              'python-docx']
+              'python-docx',
+              'whoosh']
 
 # for lib in package_lib:
 #     try:
@@ -29,7 +30,7 @@ try:
     import cv2
     import pytesseract
     from pdfminer.high_level import extract_text
-    from transformers import RagTokenizer, RagRetriever, RagSequenceForGeneration
+    from transformers import RagTokenizer, RagRetriever, RagSequenceForGeneration, AutoModel, AutoTokenizer
     from sklearn.metrics.pairwise import cosine_similarity
     import numpy as np
     from flask import Flask, render_template, request, jsonify
@@ -37,18 +38,12 @@ try:
     import faiss
     from elasticsearch import Elasticsearch
     from docx import Document
+    from PIL import Image
+    import whoosh.index as index
+    from whoosh.fields import Schema, TEXT, ID
+    from whoosh.qparser import QueryParser
 
     pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
     os.environ['TRUST_REMOTE_CODE'] = 'True'
 except BaseException as e:
     print(f"Exeption found {e}")
-
-### create a pcgs_w100.tsv.pkl file with the correct data
-data = {
-    "document1": "content1",
-    "document2": "content2",
-    "document3": "content3"
-}
-
-with open("local_dataset/psgs_w100.tsv.pkl", "wb") as f:
-    pickle.dump(data, f)

@@ -7,18 +7,15 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="container">
-        <h1>Document Search</h1>
-        <form id="searchForm">
-            <input type="text" id="query" name="query" placeholder="Enter your search query" required>
-            <button type="submit">Search</button>
-        </form>
-        <div class="files-section">
-            <h1>Available Files</h1>
-            <ul id="fileList"></ul>
-        </div>
-        <div id="results"></div>
-    </div>
+    <h1>Document Search</h1>
+    <form id="searchForm" action="/search" method="post">
+        <input type="text" id="query" name="query" placeholder="Enter your search query" required>
+        <button type="submit">Search</button>
+    </form>
+    <h2>Available Files</h2>
+    <ul id="fileList"></ul>
+    <h2>Search Results</h2>
+    <div id="results"></div>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

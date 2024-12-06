@@ -1,5 +1,6 @@
 # Folders to ignore
 documents/
+back_test/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
