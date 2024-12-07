@@ -1,6 +1,7 @@
 # Folders to ignore
 documents/
-back_test/
+results/
+trained_model/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
